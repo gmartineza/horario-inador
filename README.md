@@ -28,3 +28,20 @@ El generador de imágenes será una aplicación independiente que obtiene el hor
 
 1. Scraping de datos:
   - La aplicación deberá leer el horario de clases del usuario de un archivo JSON.
+  - La aplicación deberá manejar cualquier error o dato no válido en el archivo JSON.
+2. Generación de imagen:
+  - La aplicación deberá generar una imagen con la relación de aspecto adecuada para pantallas de smartphone.
+  - La imagen deberá mostrar el horario de clases del usuario de una manera clara y visualmente atractiva.
+3. Guardado de imagen:
+  - La aplicación deberá guardar la imagen generada en un archivo.
+
+### 3.2 Requerimientos no funcionales
+
+1. Usabilidad:
+  - La aplicación deberá tener una interfaz de usuario simple e intuitiva.
+2. Rendimiento:
+  - La aplicación deberá generar la imagen rápidamente, con demora mínima para el usuario.
+
+## 4. Información adicional
+
+Este es un proyecto personal con fines de  experimentación y aprendizaje. El enfoque está en practicar principios de la ingeniería de software y explorar el lenguaje de programación Go.

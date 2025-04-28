@@ -1,0 +1,57 @@
+import json
+from PIL import Image, ImageDraw, ImageFont
+
+def parse_json_input(input_file):
+    with open(input_file, 'r') as file:
+        data = json.load(file)
+    return data
+
+def generate_timetable(data):
+    timetable = []
+    for course in data:
+        course_name = course['nombre']
+        for schedule in course['horarios']:
+            aula = schedule['aula']
+            dia = schedule['dia']
+            horario = schedule['horario']
+            timetable.append({
+                'course': course_name,
+                'aula': aula,
+                'dia': dia,
+                'horario': horario
+            })
+    return timetable
+
+def create_wallpaper_image(timetable, output_file):
+    # Create a new image with the desired dimensions
+    image_width, image_height = 1080, 1920  # Typical phone wallpaper size
+    image = Image.new('RGB', (image_width, image_height), color=(255, 255, 255))
+
+    # Load the necessary fonts
+    font_title = ImageFont.truetype('arial.ttf', size=36)
+    font_content = ImageFont.truetype('arial.ttf', size=24)
+
+    # Draw the timetable elements on the image
+    draw = ImageDraw.Draw(image)
+    x, y = 50, 50
+    for entry in timetable:
+        draw.text((x, y), entry['course'], font=font_title, fill=(0, 0, 0))
+        y += 50
+        draw.text((x, y), f"Aula: {entry['aula']}", font=font_content, fill=(0, 0, 0))
+        y += 30
+        draw.text((x, y), f"Día: {entry['dia']}", font=font_content, fill=(0, 0, 0))
+        y += 30
+        draw.text((x, y), f"Horario: {entry['horario']}", font=font_content, fill=(0, 0, 0))
+        y += 60
+
+    # Save the image
+    image.save(output_file)
+
+if __name__ == '__main__':
+    input_file = 'moodle_data.json'
+    data = parse_json_input(input_file)
+
+    timetable = generate_timetable(data)
+
+    output_file = 'timetable_wallpaper.png'
+    create_wallpaper_image(timetable, output_file)

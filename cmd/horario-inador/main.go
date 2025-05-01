@@ -14,8 +14,6 @@ func main() {
 	// Command line flags
 	inputFile := flag.String("input", "", "Input JSON schedule file")
 	outputFile := flag.String("output", "schedule.png", "Output PNG file")
-	width := flag.Int("width", 1080, "Image width")
-	height := flag.Int("height", 1920, "Image height")
 	flag.Parse()
 
 	if *inputFile == "" {
@@ -36,13 +34,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Generate image
-	config := processor.ImageConfig{
-		Width:  *width,
-		Height: *height,
-	}
-
-	img, err := processor.GenerateImage(&schedule, config)
+	// Generate image with default config
+	config := processor.DefaultConfig()
+	img, err := processor.GenerateImage(schedule, config)
 	if err != nil {
 		fmt.Printf("Error generating image: %v\n", err)
 		os.Exit(1)
